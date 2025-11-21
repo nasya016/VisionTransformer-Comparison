@@ -1,66 +1,121 @@
-# VisionTransformer-Comparison
+# Tugas Deep Learning – Vision Transformer Comparison
 
-Percobaan ini dibuat untuk memenuhi Tugas Eksplorasi mata kuliah Deep Learning. Fokus utama proyek ini adalah membandingkan dua model Vision Transformer modern dengan menggunakan dataset CIFAR-10. Metode yang digunakan adalah transfer learning dengan memanfaatkan model pre-train yang tersedia pada library `timm`.
+Nama: Nasya Aulia
 
-Model yang diuji:
-- **DeiT-Small Patch16/224**
-- **Swin Transformer Tiny**
+NIM: 122140016
 
-## Deskripsi Singkat
-Proyek ini bertujuan untuk menganalisis:
-- Performansi kedua model (training loss, validation loss, accuracy, confusion matrix)
-- Perbedaan jumlah parameter
-- Efisiensi proses training
-- Kesesuaian model Vision Transformer untuk dataset CITAR-10
+Mata Kuliah: Deep Learning
 
-Seluruh proses dilakukan di Google Colab, dan dataset disimpan pada Google Drive agar bisa dipakai kembali tanpa mengunduh ulang.
-
-##  Dataset
-Dataset yang digunakan adalah **CIFAR-10**, yaitu kumpulan 60.000 gambar RGB berukuran 32×32 piksel dengan 10 kelas.  
-Agar kompatibel dengan model Vision Transformer, semua gambar di-resize menjadi 224×224.
+Topik: Perbandingan Model DeiT Small dan Swin Tiny pada Dataset CIFAR-10
 
 
-##  Instalasi dan Dependensi
-Perintah berikut digunakan untuk memastikan semua dependensi tersedia:
+## 1. Deskripsi Singkat
 
-pip install timm
-pip install matplotlib
-pip install scikit-learn
+Proyek ini bertujuan membandingkan dua model Vision Transformer, yaitu DeiT Small dan Swin Tiny, dengan pendekatan transfer learning menggunakan dataset CIFAR-10. Proses dilakukan menggunakan Google Colab, dengan dataset disimpan pada Google Drive.
 
-▶️ Cara Menjalankan
-1. Mount Google Drive
+Analisis yang dilakukan meliputi:
+1. Training dan validasi model
+2. Plot grafik loss dan akurasi
+3. Perhitungan confusion matrix
+4. Classification report
+5. Ringkasan performa tiap model
+6. Penyimpanan model ke Google Drive
 
-from google.colab import drive
-drive.mount('/content/drive')
+Hasil akhirnya menunjukkan perbedaan akurasi serta tingkat kesalahan masing-masing model dalam mengenali kelas CIFAR-10.
 
-2. Load Dataset CIFAR-10
-Dataset otomatis di-download ke folder Drive:
+## 2. Dataset
 
-/content/drive/My Drive/sem 7/cifar10
+Dataset yang digunakan adalah CIFAR-10, yang terdiri dari 60.000 gambar berwarna berukuran 32×32 dengan 10 kelas airplane, automobile, bird, cat, deer, dog, frog, horse, ship, dan truck. Karena Vision Transformer membutuhkan ukuran input 224×224, seluruh gambar dilakukan resize sebelum masuk ke model. Dataset kemudian disimpan ke Google Drive.
 
-Transformasi yang digunakan:
-- Resize 224×224
-- Random horizontal flip (augmentasi)
-- Normalisasi warna
+## 3. Model yang Digunakan
+a. DeiT Small (deit_small_patch16_224)
 
-3. Training Model
-Notebook menyediakan proses:
-- Inisialisasi model DeiT-Small dan Swin-Tiny
-- Training menggunakan AdamW optimizer
-- Validasi tiap epoch
-- Scheduler Cosine Annealing
+    - Vision Transformer ringan
+    - Efisien saat dilatih ulang
+    - Cocok untuk transfer learning
+    - Input wajib 224×224
 
-4. Visualisasi
-Notebook menampilkan grafik:
-- Training Loss vs Validation Loss
-- Training Accuracy vs Validation Accuracy
+b. Swin Tiny (swin_tiny_patch4_window7_224)
 
-5. Confusion Matrix
-Disediakan untuk dua model, yaitu:
-- DeiT Small
-- Swin Tiny
+    - Model hierarkis berbasis windows
+    - Lebih stabil pada gambar resolusi tinggi
+    - Akurasi biasanya lebih baik dari ViT biasa
+    - Input 224×224
 
-6. Penyimpanan Model
-Model otomatis disimpan ke:
+Kedua model dimodifikasi untuk num_classes = 10 (sesuai CIFAR-10).
 
-My Drive/sem 7/saved_models/
+## 4. Tahapan Proyek
+  1. Download dan Setup Dataset
+
+     - CIFAR-10 diunduh langsung ke Google Drive
+     - Melakukan transformasi (resize, normalize, augmentasi flip)
+     - Batch size digunakan 16
+
+  2. Training Model
+
+      Setiap model melalui:
+
+      - Training loss
+      - Training accuracy
+      - Validation loss
+      - Validation accuracy
+      - Scheduler Cosine Annealing LR
+
+      Training dilakukan selama 5 epoch agar lebih cepat di Colab.
+
+  3. Evaluasi Model
+
+      Evaluasi mencakup:
+      - Confusion matrix
+      - Akurasi per kelas
+      - Total benar dan salah
+      - Classification report (precision, recall, f1-score)
+
+  4. Visualisasi
+
+      - Grafik training vs validation loss
+      - Grafik training vs validation accuracy
+      - Confusion matrix DeiT
+      - Confusion matrix Swin
+
+  5. Penyimpanan Model
+
+      Model disimpan ke folder Google Drive dengan nama file `deit_small_cifar10.pth` dan `swin_tiny_cifar10.pth`
+
+## 5. Hasil Utama
+  1. Hasil Evaluasi DeiT Small
+      Ringkasan Utama:
+      - Total Data: 10.000
+      - Total Benar: 9.596
+      - Total Salah: 404
+      - Akurasi: 95.96%
+      - Precision rata-rata: 0.96
+      - Recall rata-rata: 0.96
+      - F1-score rata-rata: 0.96
+      Akurasi per kelas sudah ditampilkan pada terminal
+
+      Model DeiT menghasilkan akurasi tinggi hampir 96%. Performa terbaik terlihat pada kelas frog dan horse, sementara kelas yang paling sulit adalah dog. Variasi pose hewan kemungkinan mempengaruhi hasil prediksi.
+
+  2. Hasil Evaluasi Swin Tiny
+      Ringkasan Utama
+      - Total Data: 10.000
+      - Total Benar: 9.623
+      - Total Salah: 377
+      - Akurasi: 96.23%
+      - Precision rata-rata: 0.96
+      - Recall rata-rata: 0.96
+      - F1-score rata-rata: 0.96
+      Akurasi per kelas sudah ditampilkan pada terminal
+
+      Swin Tiny sedikit lebih unggul dengan akurasi 96.23%. Model ini memiliki performa stabil pada kelas kendaraan seperti automobile dan truck, serta sangat baik pada kelas frog. Kesalahan paling banyak terdapat pada kelas cat dan dog.
+
+## 6. Cara Menjalankan Kode
+      - Buka file .py atau notebook di Google Colab
+      - Mount Google Drive
+      - Load dataset CIFAR-10 ke direktori Google Drive
+      - Jalankan semua sel sampai selesai
+      - Training akan menghasilkan:
+        - Grafik loss dan akurasi
+        - Confusion matrix
+        - Classification report
+      - Model (.pth) akan otomatis tersimpan ke Google Drive
