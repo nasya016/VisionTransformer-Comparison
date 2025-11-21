@@ -35,8 +35,3 @@ Output Model
 File model disimpan sebagai:
   - `deit_small_cifar10.pth`
   - `swin_tiny_cifar10.pth`
-
----
-
-Semua checklist di atas sudah **dipenuhi** berdasarkan file `122140016_nasya_aulia_tugasdeeplearning.py` yang kamu berikan.
-
