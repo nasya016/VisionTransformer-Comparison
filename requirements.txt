@@ -1,1 +1,42 @@
+Checklist Tugas Deep Learning – Vision Transformer
+
+Berikut adalah daftar pengecekan untuk memastikan seluruh komponen tugas telah lengkap:
+
+Dokumen
+README.md menjelaskan dengan jelas:
+  - Deskripsi proyek
+  - Dataset yang digunakan
+  - Instalasi dan dependensi
+  - Cara menjalankan kode
+  - Detail model (DeiT & Swin)
+  - Hasil evaluasi (akurasi, confusion matrix, classification report)
+  - Kesimpulan dan perbandingan model
+  - Lokasi penyimpanan model (.pth)
+
+Dependensi
+requirements.txt berisi **seluruh dependensi** yang digunakan dalam proyek
+
+Model & Kode
+Kode utama menjalankan:
+  - Training kedua model (DeiT Small & Swin Tiny)
+  - Validasi model
+  - Visualisasi loss dan akurasi
+  - Confusion matrix
+  - Classification report
+  - Penyimpanan model ke Google Drive
+
+Evaluasi
+- Menampilkan confusion matrix (DeiT & Swin)
+- Menampilkan ringkasan akurasi per kelas
+- Menampilkan classification report
+- Menampilkan grafik training & validation
+
+Output Model
+File model disimpan sebagai:
+  - `deit_small_cifar10.pth`
+  - `swin_tiny_cifar10.pth`
+
+---
+
+Semua checklist di atas sudah **dipenuhi** berdasarkan file `122140016_nasya_aulia_tugasdeeplearning.py` yang kamu berikan.
 
